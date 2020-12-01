@@ -1,0 +1,1772 @@
+{
+	"info": {
+		"_postman_id": "540c834c-88cc-f024-2f46-1d65abd948bd",
+		"name": "API Auto Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setEnvironmentVariable(\"random_username\", (\"0000\" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4));",
+							"postman.setEnvironmentVariable(\"random_username2\", (\"0000\" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4));"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"username\":\"{{random_username}}\", \"password\":\"asd\"},{\"username\":\"{{random_username2}}\", \"password\":\"asd\"}]\n"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Online Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/status",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users?limit=100",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Friends",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/contacts/users/{{random_username2}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"contacts",
+						"users",
+						"{{random_username2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Friend List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/contacts/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"contacts",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Text Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"target_type\":\"users\",\n    \"target\":[\"{{random_username}}\",\"{{random_username2}}\"],\n    \"msg\":{\n        \"type\":\"txt\",\n        \"msg\":\"message from rest\" \n        },\n    \"from\":\"rest\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/messages",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move a Friend to Blacklist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usernames\":[\"{{random_username2}}\"]}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/blocks/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"blocks",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove  a Friend from Blacklist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/blocks/users/{{random_username2}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"blocks",
+						"users",
+						"{{random_username2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete  a Friend",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}/contacts/users/{{random_username2}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}",
+						"contacts",
+						"users",
+						"{{random_username2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Public Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var groupId = jsonData.data.groupid;\r",
+							"postman.setEnvironmentVariable(\"group_id\", groupId);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"groupname\":\"Mr.M's public house\",\n    \"desc\":\"RST created group\",\n    \"public\":true, \n    \"maxusers\":800,\n    \"approval\":false,\n    \"owner\":\"mcs1\",\n    \"members\":[\"mcs2\"] \n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Member to Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Group Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"target_type\":\"chatgroups\",\n    \"target\":[\"{{group_id}}\"],\n    \"msg\":{\n        \"type\":\"txt\",\n        \"msg\":\"group message from rest\" \n        },\n    \"from\":\"rest\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/messages",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mute a Chatgroup Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usernames\":[\"{{random_username}}\"], \"mute_duration\":86400000}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"mute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Muted Member List of a Chatgroup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"mute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unmute a Chatgroup Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"mute",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Chatgroup Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"newadmin\":\"{{random_username}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin List of a Chatgroup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Chatgroup Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/admin/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"admin",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move a Member to Blacklist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"blocks",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Member from Group Blacklist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"blocks",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Member to Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Member from Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Group",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatgroups",
+						"{{group_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var chatroomId = jsonData.data.id;\r",
+							"postman.setEnvironmentVariable(\"chatroom_id\", chatroomId);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\":\"Mr.M's chatroom\",\n\"description\":\"chatroom description\",\n\"maxusers\":5000,\n\"owner\":\"mcs1\"\n}\n"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invite a Member to Chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Messages to Chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"target_type\":\"chatrooms\",\n    \"target\":[\"{{chatroom_id}}\"],\n    \"msg\":{\n        \"type\":\"txt\",\n        \"msg\":\"message from rest\" \n        },\n    \"from\":\"rest\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/messages",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mute a Chatroom Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usernames\":[\"{{random_username}}\"], \"mute_duration\":86400000}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"mute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Muted Member List of a chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"mute"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unmute a Chatroom Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"mute",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Chatroom Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"newadmin\":\"{{random_username}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin List of a Chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove a Chatroom Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"admin",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kick a Member out from chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Chatroom",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"chatrooms",
+						"{{chatroom_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "{{Accept}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{Content-Type}}"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/{{org_name}}/{{app_name}}/users/{{random_username2}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{org_name}}",
+						"{{app_name}}",
+						"users",
+						"{{random_username2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
